@@ -32,11 +32,30 @@
               </button>
             </form>
           <% } else { %>
-            <a href="/log-in">Log in</a>
-            <a class="button button-primary" href="/sign-up">
-              Sign up
-            </a>
-          <% } %>
+  <form class="login-form" action="/log-in" method="POST">
+    <input
+      type="text"
+      name="username"
+      placeholder="Username"
+      required
+    />
+
+    <input
+      type="password"
+      name="password"
+      placeholder="Password"
+      required
+    />
+
+    <button class="button button-primary" type="submit">
+      Log in
+    </button>
+  </form>
+
+  <a class="button button-secondary" href="/sign-up">
+    Sign up
+  </a>
+<% } %>
         </nav>
       </div>
     </header>

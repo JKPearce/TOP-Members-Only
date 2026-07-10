@@ -287,3 +287,36 @@ button {
     gap: 0.2rem;
   }
 }
+.login-form {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.login-form input {
+  width: 140px;
+  padding: 0.45rem 0.75rem;
+
+  border: 1px solid #dfe4ea;
+  border-radius: 999px;
+
+  background: white;
+}
+
+.login-form input:focus {
+  outline: none;
+  border-color: #5d83cb;
+  box-shadow: 0 0 0 3px rgba(49, 95, 187, 0.12);
+}
+
+@media (max-width: 600px) {
+  .login-form {
+    width: 100%;
+    flex-wrap: wrap;
+    justify-content: flex-end;
+  }
+
+  .login-form input {
+    width: 100%;
+  }
+}

@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>Sign Up | Members Only</title>
+  </head>
+
+  <body>
+    <main>
+      <h1>Create an account</h1>
+
+      <form action="/sign-up" method="POST">
+        <div>
+          <label for="firstName">First name</label>
+          <input
+            type="text"
+            id="firstName"
+            name="firstName"
+            maxlength="20"
+            required
+          />
+        </div>
+
+        <div>
+          <label for="lastName">Last name</label>
+          <input
+            type="text"
+            id="lastName"
+            name="lastName"
+            maxlength="20"
+            required
+          />
+        </div>
+
+        <div>
+          <label for="username">Username</label>
+          <input
+            type="text"
+            id="username"
+            name="username"
+            maxlength="12"
+            required
+          />
+        </div>
+
+        <div>
+          <label for="email">Email</label>
+          <input
+            type="email"
+            id="email"
+            name="email"
+            maxlength="255"
+            required
+          />
+        </div>
+
+        <div>
+          <label for="password">Password</label>
+          <input type="password" id="password" name="password" required />
+        </div>
+
+        <div>
+          <label for="confirm_password">Confirm password</label>
+          <input
+            type="password"
+            id="confirm_password"
+            name="confirm_password"
+            required
+          />
+        </div>
+
+        <button type="submit">Sign up</button>
+      </form>
+
+      <p>
+        Already have an account?
+        <a href="/log-in">Log in</a>
+      </p>
+    </main>
+  </body>
+</html>

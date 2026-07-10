@@ -3,13 +3,128 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
     <title>Members Only</title>
+
+    <link rel="stylesheet" href="/styles/main.css" />
   </head>
+
   <body>
-    <h1>Members Only</h1>
+    <header class="site-header">
+      <div class="header-content">
+        <a class="brand" href="/">Members Only</a>
 
-    <p>Welcome to the clubhouse. Very exclusive. Clearly society has peaked.</p>
+        <nav class="account-nav">
+          <% if (currentUser) { %>
+            <span class="username">
+              @<%= currentUser.username %>
+            </span>
 
-    <a href="/sign-up">Sign up</a>
+            <% if (!currentUser.is_member) { %>
+              <a class="button button-secondary" href="/join">
+                Join the club
+              </a>
+            <% } %>
+
+            <form action="/log-out" method="POST">
+              <button class="button button-ghost" type="submit">
+                Log out
+              </button>
+            </form>
+          <% } else { %>
+            <a href="/log-in">Log in</a>
+            <a class="button button-primary" href="/sign-up">
+              Sign up
+            </a>
+          <% } %>
+        </nav>
+      </div>
+    </header>
+
+    <main class="page">
+      <% if (currentUser) { %>
+        <section class="composer">
+          <form action="/posts" method="POST">
+            <label class="visually-hidden" for="title">Post title</label>
+
+            <input
+              type="text"
+              id="title"
+              name="title"
+              maxlength="100"
+              placeholder="Post title"
+              required
+            />
+
+            <label class="visually-hidden" for="body">Post body</label>
+
+            <textarea
+              id="body"
+              name="body"
+              maxlength="500"
+              placeholder="What are you thinking?"
+              required
+            ></textarea>
+
+            <div class="composer-footer">
+              <span class="composer-hint">Maximum 500 characters</span>
+
+              <button class="button button-primary" type="submit">
+                Post
+              </button>
+            </div>
+          </form>
+        </section>
+      <% } else { %>
+        <section class="welcome-card">
+          <h1>Welcome to the clubhouse</h1>
+
+          <p>
+            Read the posts, wonder who wrote them, then sign up to join the
+            questionable inner circle.
+          </p>
+
+          <a class="button button-primary" href="/sign-up">
+            Create an account
+          </a>
+        </section>
+      <% } %>
+
+      <section class="feed">
+        <% if (posts.length === 0) { %>
+          <div class="empty-state">
+            <h2>No posts yet</h2>
+            <p>The silence is suspicious.</p>
+          </div>
+        <% } %>
+
+        <% posts.forEach((post) => { %>
+          <article class="post-card">
+            <div class="post-meta">
+              <% if (currentUser && currentUser.is_member) { %>
+                <span class="post-author">
+                  @<%= post.username %>
+                </span>
+
+                <time datetime="<%= post.created_at %>">
+                  <%= new Date(post.created_at).toLocaleString("en-AU", {
+                    dateStyle: "medium",
+                    timeStyle: "short"
+                  }) %>
+                </time>
+              <% } else { %>
+                <span class="post-author anonymous">
+                  Anonymous
+                </span>
+              <% } %>
+            </div>
+
+            <h2 class="post-title"><%= post.title %></h2>
+
+            <p class="post-body"><%= post.body %></p>
+          </article>
+        <% }) %>
+      </section>
+    </main>
   </body>
 </html>

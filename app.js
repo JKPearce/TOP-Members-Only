@@ -6,11 +6,13 @@ const session = require("express-session");
 const passport = require("passport");
 
 require("./config/passport");
+const { getAllPosts } = require("./models/postsModel");
 
 const authRouter = require("./routes/authRouter");
 
 const app = express();
 
+app.use(express.static(path.join(__dirname, "public")));
 app.set("views", path.join(__dirname, "views"));
 app.set("view engine", "ejs");
 
@@ -29,8 +31,17 @@ app.use(passport.session());
 
 app.use("/", authRouter);
 
-app.get("/", (req, res) => {
-  res.render("index");
+app.get("/", async (req, res, next) => {
+  try {
+    const posts = await getAllPosts();
+
+    res.render("index", {
+      posts,
+      currentUser: req.user || null,
+    });
+  } catch (error) {
+    next(error);
+  }
 });
 
 const PORT = process.env.PORT || 3000;

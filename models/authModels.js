@@ -60,8 +60,25 @@ async function findUserById(id) {
   return rows[0];
 }
 
+async function makeUserMember(userId) {
+  const query = `
+    UPDATE users
+    SET is_member = true
+    WHERE id = $1
+    RETURNING
+      id,
+      username,
+      is_member
+  `;
+
+  const { rows } = await pool.query(query, [userId]);
+
+  return rows[0];
+}
+
 module.exports = {
   createUser,
   findUserById,
   findUserByUsername,
+  makeUserMember,
 };

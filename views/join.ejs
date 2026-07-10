@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>Join the Club | Members Only</title>
+
+    <link rel="stylesheet" href="/styles/main.css" />
+  </head>
+
+  <body>
+    <!-- The member code is: odin-knows -->
+
+    <main class="page">
+      <section class="welcome-card">
+        <h1>Join the Club</h1>
+
+        <p>
+          Membership is reserved for those clever enough to inspect the page.
+        </p>
+
+        <form action="/join" method="POST" class="join-form">
+          <label for="memberCode">Member code</label>
+
+          <input
+            type="text"
+            id="memberCode"
+            name="memberCode"
+            placeholder="Enter the secret code"
+            required
+          />
+
+          <button class="button button-primary" type="submit">Join</button>
+        </form>
+      </section>
+    </main>
+  </body>
+</html>

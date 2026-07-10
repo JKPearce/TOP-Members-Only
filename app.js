@@ -6,7 +6,7 @@ const session = require("express-session");
 const passport = require("passport");
 
 require("./config/passport");
-const { getAllPosts } = require("./models/postsModel");
+const { getAllPosts, createPost } = require("./models/postsModel");
 
 const authRouter = require("./routes/authRouter");
 
@@ -39,6 +39,26 @@ app.get("/", async (req, res, next) => {
       posts,
       currentUser: req.user || null,
     });
+  } catch (error) {
+    next(error);
+  }
+});
+
+app.post("/posts", async (req, res, next) => {
+  try {
+    if (!req.isAuthenticated()) {
+      return res.status(401).send("You must be logged in to post");
+    }
+
+    const { title, body } = req.body;
+
+    await createPost({
+      title,
+      body,
+      userId: req.user.id,
+    });
+
+    res.redirect("/");
   } catch (error) {
     next(error);
   }

@@ -28,6 +28,40 @@ async function createUser({
   return rows[0];
 }
 
+async function findUserByUsername(username) {
+  const query = `
+    SELECT *
+    FROM users
+    WHERE username = $1
+  `;
+
+  const { rows } = await pool.query(query, [username]);
+
+  return rows[0];
+}
+
+async function findUserById(id) {
+  const query = `
+    SELECT
+      id,
+      first_name,
+      last_name,
+      username,
+      email,
+      is_member,
+      is_admin,
+      created_at
+    FROM users
+    WHERE id = $1
+  `;
+
+  const { rows } = await pool.query(query, [id]);
+
+  return rows[0];
+}
+
 module.exports = {
   createUser,
+  findUserById,
+  findUserByUsername,
 };
